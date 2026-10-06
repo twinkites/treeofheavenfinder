@@ -5,7 +5,7 @@ are so often taken in alleys and beside buildings.
 
 Crops are cut the same way the app cuts them (js/sources/mapillary.js).
 
-Usage: MAPILLARY_TOKEN='MLY|…' python fetch_streets.py data/
+Usage: MAPILLARY_TOKEN='MLY|...' python fetch_streets.py data/
 Appends rows with class "street" to data/manifest.csv; run after fetch_data.py.
 """
 import csv, io, json, os, random, sys, time, urllib.parse, urllib.request

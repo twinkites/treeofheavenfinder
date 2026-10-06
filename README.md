@@ -29,7 +29,7 @@ To run it locally, serve the folder with any static server (`python3 -m http.ser
 
 Client tokens are designed to be public, so putting one in the site is fine, and visitors can then scan without signing up. If you leave `config.js` empty, each visitor is asked for their own token.
 
-How a Mapillary scan works: the app lists every photo in the map view and keeps one per grid cell. It prefers photos taken while trees are in leaf (May–October, or November–April in the southern hemisphere), then 360° panoramas, then the newest. Panoramas are cut into four 90° views. Ordinary forward-facing photos are cropped at the left and right edges, where the roadside is. Light green dots on the map show which photos a scan will use. Results credit the photographer, as the CC BY-SA licence requires, and the GeoJSON export carries that credit too.
+How a Mapillary scan works: the app lists every photo in the map view and keeps one per grid cell. It prefers photos taken while trees are in leaf (May to October, or November to April in the southern hemisphere), then 360° panoramas, then the newest. Panoramas are cut into four 90° views. Ordinary forward-facing photos are cropped at the left and right edges, where the roadside is. Light green dots on the map show which photos a scan will use. Results credit the photographer, as the CC BY-SA licence requires, and the GeoJSON export carries that credit too.
 
 ## Google Street View API key
 
@@ -70,7 +70,7 @@ cd training
 python -m venv .venv && . .venv/bin/activate
 pip install torch open_clip_torch onnx onnxruntime onnxscript pillow scikit-learn
 python fetch_data.py data        # ~3,500 iNaturalist photos
-MAPILLARY_TOKEN='MLY|…' python fetch_streets.py data   # street scenes without the tree
+MAPILLARY_TOKEN='MLY|...' python fetch_streets.py data   # street scenes without the tree
 python train.py data ../model    # prints held-out accuracy, writes toh.onnx + toh.json
 ```
 
@@ -99,4 +99,4 @@ training/           scripts that build the model
 
 Base map © OpenStreetMap contributors. Place search by Nominatim. Sightings and training photos from iNaturalist contributors. Street photos from Mapillary contributors (CC BY-SA 4.0) or Google. BioCLIP by the Imageomics Institute.
 
-© Twin Kites LLC — [twinkites.com](https://twinkites.com)
+© Twin Kites LLC, [twinkites.com](https://twinkites.com)

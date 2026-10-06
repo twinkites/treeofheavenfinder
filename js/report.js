@@ -89,7 +89,7 @@ export async function openReport(r) {
   current = { ...r, place: null };
   $('#rep-slf').checked = false; // each report starts fresh; the name is kept
   $('#rep-checked').checked = false;
-  $('#rep-place').textContent = `${r.lat.toFixed(5)}, ${r.lng.toFixed(5)} (looking up the address…)`;
+  $('#rep-place').textContent = `${r.lat.toFixed(5)}, ${r.lng.toFixed(5)} (looking up the address)`;
   $('#rep-attach').hidden = !r.uploaded;
   $('#rep-status').textContent = '';
   renderRecipient();

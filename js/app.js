@@ -234,7 +234,7 @@ function updateEstimate() {
     el.textContent = `This view is too big to scan at ${spacing()} m spacing. Zoom in or sample less often.`;
     return;
   }
-  el.textContent = 'Checking what imagery is here…';
+  el.textContent = 'Checking what imagery is here';
   estimateTimer = setTimeout(async () => {
     estimateAbort = new AbortController();
     try {
@@ -366,7 +366,7 @@ $('#place-form').onsubmit = async e => {
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/search?${new URLSearchParams({ q, format: 'json', limit: 1 })}`);
     const [hit] = await res.json();
-    if (!hit) return setStatus(`No place called “${q}” found. Try adding a state or country.`, true);
+    if (!hit) return setStatus(`No place called "${q}" found. Try adding a state or country.`, true);
     map.flyTo([Number(hit.lat), Number(hit.lon)], 17);
     setStatus('');
   } catch {
@@ -384,7 +384,7 @@ $('#locate').onclick = () => {
 const toast = $('#model-toast');
 async function ensureModel() {
   toast.hidden = false;
-  toast.textContent = 'Loading the tree model…';
+  toast.textContent = 'Loading the tree model';
   try {
     await loadModel((got, total) => {
       toast.textContent = total
@@ -404,7 +404,7 @@ async function checkFiles(files) {
     const card = document.createElement('article');
     card.className = 'verdict';
     const url = URL.createObjectURL(file);
-    card.innerHTML = `<img src="${url}" alt=""><div><h3>Checking…</h3></div>`;
+    card.innerHTML = `<img src="${url}" alt=""><div><h3>Checking</h3></div>`;
     out.prepend(card);
     try {
       await ensureModel();
@@ -413,7 +413,7 @@ async function checkFiles(files) {
       const top = r.ranked[0];
       let cls, title, note;
       if (top.id === 'not_tree' || top.id === 'street') {
-        cls = 'no'; title = 'This doesn’t look like a tree';
+        cls = 'no'; title = "This doesn't look like a tree";
         note = 'Try a photo of a single leaf or a branch tip, filling most of the frame.';
       } else if (r.toh >= 0.7) {
         cls = 'yes'; title = 'Likely tree of heaven';
@@ -434,7 +434,7 @@ async function checkFiles(files) {
         ${cls !== 'no' ? '<button type="button" class="secondary report-btn">Report to my state</button><p class="report-hint"></p>' : ''}`;
       card.querySelector('.report-btn')?.addEventListener('click', e => reportUpload(e.currentTarget, r.toh));
     } catch (err) {
-      card.querySelector('h3').textContent = `Couldn’t check this photo: ${err.message}`;
+      card.querySelector('h3').textContent = `Couldn't check this photo. ${err.message}`;
     }
   }
 }
@@ -442,10 +442,10 @@ async function checkFiles(files) {
 function reportUpload(btn, confidence) {
   const hint = btn.nextElementSibling;
   if (!navigator.geolocation) {
-    hint.textContent = 'This browser can’t share your location. Report from the map instead.';
+    hint.textContent = "This browser can't share your location. Report from the map instead.";
     return;
   }
-  hint.textContent = 'Using your current location: stand next to the tree.';
+  hint.textContent = 'Using your current location, so stand next to the tree.';
   navigator.geolocation.getCurrentPosition(
     p => { hint.textContent = ''; openReport({ lat: p.coords.latitude, lng: p.coords.longitude, confidence, uploaded: true }); },
     () => { hint.textContent = 'Location is blocked. Allow it in your browser settings, then try again.'; },

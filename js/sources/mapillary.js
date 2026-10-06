@@ -36,7 +36,7 @@ async function listImages(token, [w, s, e, n], signal, depth = 0) {
 
 const isPano = img => img.is_pano || img.camera_type === 'equirectangular' || img.camera_type === 'spherical';
 
-// Leaves are out May–October in the north, November–April in the south.
+// Leaves are out May to October in the north, November to April in the south.
 function leafOn(img, lat) {
   const m = new Date(img.captured_at).getUTCMonth() + 1;
   return lat >= 0 ? m >= 5 && m <= 10 : m >= 11 || m <= 4;
@@ -82,8 +82,8 @@ export async function estimate(opts) {
   const text = total === 0
     ? 'Nobody has uploaded Mapillary photos here yet. Try another area, or switch to Google Street View.'
     : picks.length === 0
-      ? `${total.toLocaleString()} photos here, but none taken while trees are in leaf. Untick “leaf-on only” to use them anyway.`
-      : `${total.toLocaleString()} photos here. Scanning the best one every ${opts.spacing} m: ${picks.length.toLocaleString()} photos, free. Photos scanned before are skipped.`;
+      ? `${total.toLocaleString()} photos here, but none taken while trees are in leaf. Untick "Only use photos taken while trees are in leaf" to use them anyway.`
+      : `${total.toLocaleString()} photos here. The scan will use ${picks.length.toLocaleString()} of them, about one every ${opts.spacing} m. Mapillary is free, and photos scanned before are skipped.`;
   return { count: picks.length, picks, text };
 }
 
@@ -91,7 +91,7 @@ export async function estimate(opts) {
 function crops(c, w, h) {
   if (c.pano) {
     // Equirectangular: four 90° slices around the horizon, biased slightly upward
-    // where tree crowns are. Centers at 1/8, 3/8… of the width never wrap the seam.
+    // where tree crowns are. Centers at 1/8, 3/8, 5/8 and 7/8 of the width never wrap the seam.
     const side = Math.round(w / 4);
     const y = Math.max(0, Math.round(h / 2 - side * 0.6));
     return [1, 3, 5, 7].map(k => ({

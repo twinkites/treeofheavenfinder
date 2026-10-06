@@ -15,7 +15,7 @@ export const STATE_CONTACTS = {
     asksForToh: true,
   },
   WI: {
-    agency: 'Wisconsin First Detector Network (UW–Madison Extension, with Wisconsin DNR)',
+    agency: 'Wisconsin First Detector Network (UW-Madison Extension, with Wisconsin DNR)',
     email: 'WIFDN@extension.wisc.edu',
     url: 'https://forestrynews.blogs.govdelivery.com/2023/04/13/report-tree-of-heaven-to-help-monitor-for-spotted-lanternfly/',
     asksForToh: true,
